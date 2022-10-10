@@ -10,9 +10,9 @@ module.exports = ( () => {
         //Cargo todos los schemas
         let resolrs = path.join(__dirname, file)
         console.log("RESOLVERS: ", resolrs)
-        Object.assign(resolvers.Query, rsver.Query);
-        Object.assign(resolvers.Mutation, rsver.Mutation);
-        Object.assign(resolvers.Subscription, rsver.Subscription);
+        // Object.assign(resolvers.Query, rsver.Query);
+        // Object.assign(resolvers.Mutation, rsver.Mutation);
+        // Object.assign(resolvers.Subscription, rsver.Subscription);
     })
     return resolvers
 })()

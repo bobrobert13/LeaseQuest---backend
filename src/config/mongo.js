@@ -7,8 +7,8 @@ console.log("inicializando por: ", mongoUrl);
    function startMongo(){
         try {
             return mongoose.connect(mongoUrl, {useNewUrlParser: true})
-            .then( (connect) => { console.log("Servicio mongo ACTIVO", connect); } )
-            .catch( (error) => { console.log("Error en el Servicio de Mongo: ", error ); throw error } )
+            .then( () => { console.log("Servicio mongo ACTIVO"); } )
+            .catch( (error) => { console.log("Error en el Servicio de Mongo: "); throw error } )
         } catch (error) {
             console.log("Error con MongoDB: ", error);
         }
