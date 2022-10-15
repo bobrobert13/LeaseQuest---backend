@@ -1,35 +1,33 @@
-const { ApolloServer } = require("apollo-server-express")
-const typeDefs = require("../domain/schemas")
-const resolvers = require("../domain/resolvers")
-const config = require("../config")
-const http = require("http")
+import { ApolloServer } from 'apollo-server-express';
+import config from '../config'
+import http from 'http'
+import { Application } from './modules'
 
-module.exports = {
-apollosServiceInit: (app) => {
+const schema = Application.createSchemaForApollo()
+let urlApi = "/graphql";
+
+export const server = {
+  apollosServiceInit: async (app) => {
+
     const apolloApp = new ApolloServer({
-        typeDefs,
-        resolvers,
-        methods: 'POST',
-        playground: process.env.NODE_ENV || 'development',
-        introspection: true,
-        playground: true,
-        subscribe: true,
-        debug: true,
-        subscriptions: {},
-
-
+      schema,
+      method: 'POST',
+      introspection: true,
+      playground: true,
+      subscribe: true,
+      debug: true,
+      subscriptions: {},
     })
-    let urlApi = "/graphql";
-    apolloApp.applyMiddleware({ 
-        app, 
-        urlApi,
-        cors: false, bodyParserConfig: 
-        {
-        limit:"10mb"
-        }
-        });
-    
+
+    await apolloApp.start()
+
+    apolloApp.applyMiddleware({
+      app,
+      path: urlApi,
+      cors: true
+    })
+
     const server = http.createServer(app)
-    server.listen(config.port, () => {"Server Apollo GraphQl preparado.!!"} )
-},  
+    server.listen(config.port, () => { console.log(` =======> Server Apollo GraphQl preparado.!!, puerto: ${config.port}${apolloApp.graphqlPath} `); })
+  },
 }

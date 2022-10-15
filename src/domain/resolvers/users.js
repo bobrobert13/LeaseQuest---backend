@@ -1,9 +1,0 @@
-
-
-const Query = {
-
-}
-
-const Mutation = {
-    
-}

@@ -1,0 +1,3 @@
+esta carpeta "modules" es para instanciar cada schema de graphql por separado, 
+en este caso solo esta un ".js" de index porque el proyecto es pequeño y se podria controlar con un solo archivo,
+para la creacion de schema completo usar el index.js y para juntar el resolver con los typedefs se debe crear un archivo nuevo en esta carpeta.

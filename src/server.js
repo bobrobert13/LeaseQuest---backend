@@ -1,21 +1,20 @@
-const express = require("express")
 const cors = require("cors")
-const app = express();
-const mongo = require("../src/config/mongo");
-const graphql = require("../src/domain")
+import express from 'express';
+const mongo = require("./config/mongo");
+import { server } from '../src/domain'
+const app = express()
 
-    let corsOptions = {
-        origin: '*',
-        optionsSuccessStatus: 200,
-    }
-    app.use(cors(corsOptions))
+const corsOptions = {
+  origin: true,
+  optionsSuccessStatus: 200,
+};
 
-    app.dirbase = __dirname
-    console.log("DIRECTORIO ACTUAL:", app.dirbase);
-    
-    //ahora iniciamos los servicios del server: apollo graphql, mongoDB y otros.
-    ( async () => {
-            await mongo.startMongo();
-            await graphql.apolloServiceInit(app)
-             
-    })()
+app.use(cors(corsOptions));
+
+
+//ahora iniciamos los servicios del server: apollo graphql, mongoDB y otros.
+(async () => {
+  await mongo.startMongo();
+  await server.apollosServiceInit(app)
+  console.log('--------------------- Servicios Iniciados ------------------------');
+})()
