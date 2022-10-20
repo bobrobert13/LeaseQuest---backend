@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
 import config from '../config'
 import http from 'http'
 import { Application } from './modules'
@@ -12,6 +13,9 @@ export const server = {
     const apolloApp = new ApolloServer({
       schema,
       method: 'POST',
+      plugins: [
+        ApolloServerPluginLandingPageGraphQLPlayground({})
+      ],
       introspection: true,
       playground: true,
       subscribe: true,
