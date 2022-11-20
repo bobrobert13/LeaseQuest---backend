@@ -51,21 +51,18 @@ export const userType = gql`
   address: address
 }
 
-  type getUsers {
-    allUser: [User]
-    }
 
   input userInput {
   fullName: String
   email: String
   foto: String
   password: String
-  phone: Int
+  role: role
   }
 
   type Query {
   getOneUser(userId: ID): User
-  allUsers: [getUsers]
+  allUsers: [User]
     }
 
   type Mutation {

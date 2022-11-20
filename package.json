@@ -16,6 +16,7 @@
   "author": "Robert Caraballo @bobrobert13 , rob132ca@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "apollo-server": "^3.10.3",
     "apollo-server-core": "^3.10.3",
     "apollo-server-env": "^4.2.1",

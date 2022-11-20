@@ -1,4 +1,5 @@
-import mongoose, { mongo } from "mongoose";
+
+import mongoose from "mongoose";
 
 const plans = new mongoose.Schema({
   byDay: { type: Boolean }, byMonth: { type: Boolean }, byWeek: { type: Boolean }
@@ -6,7 +7,7 @@ const plans = new mongoose.Schema({
 
 
 const user = new mongoose.Schema({
-  id: { type: mongoose.Schema.Types.ObjectId },
+  id: { type: String },
   fullName: { type: String },
   email: { type: String },
   foto: { type: String },
@@ -29,27 +30,25 @@ const booking = new mongoose.Schema({
   end: { type: Date }
 })
 
-const address = new mongoose.Schema({
-  referencia: { type: String },
-  entityID: { type: mongoose.Schema.Types.ObjectId },
-  type: { type: String, enum: ['casa', 'apartamento', 'ninguno'] }
-})
+// const address = new mongoose.Schema({
+//   referencia: { type: String },
+//   entityID: { type: mongoose.Schema.Types.ObjectId },
+//   type: { type: String, enum: ['casa', 'apartamento', 'ninguno'] }
+// })
 
-
-const apartaments = new mongoose.Schema({
+const apartamentSchema = new mongoose.Schema({
   name: { type: String },
   photo: { type: String },
   description: { type: String },
   disponible: { type: Boolean },
-  recomendado: { type: Boolean },
+  recomendado: { type: Boolean, default: false },
   bathrooms: { type: Number },
-  address: address,
   rooms: { type: Number },
   salas: { type: Number },
   suite: { type: Boolean },
   costo: { type: Number },
   plans: [plans],
-  points: { type: Number },
+  points: { type: Number, },
   recomendadoBy: [user],
   gallery: [gallery],
   numberApt: { type: Number },
@@ -58,9 +57,12 @@ const apartaments = new mongoose.Schema({
   cocinas: { type: Number },
   muebleria: { type: Boolean },
   servicios: [services],
-  disponible: { type: Boolean },
-  status: { type: Boolean },
+  disponible: { type: Boolean, default: true },
+  status: { type: Boolean, default: true },
   booking: booking,
 })
 
-export const APT = new mongoose.model('Apartament', apartaments)
+const apartamentModel = mongoose.model('apartaments', apartamentSchema);
+export default apartamentModel;
+
+console.log("esquema infe", { apartamentModel })

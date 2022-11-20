@@ -4,7 +4,6 @@ import { userType } from '../typeDefs/user.type'
 
 export const user = createModule({
   id: 'user',
-  dirname: __dirname,
   resolvers: [userResolver],
   typeDefs: [userType],
 })

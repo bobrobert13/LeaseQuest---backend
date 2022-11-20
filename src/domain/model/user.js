@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import apartamentModel from "./apartaments";
+
+console.log("Este schema", { apartamentModel })
 
 const social_net = new mongoose.Schema({
   facebook: { type: String },
@@ -24,20 +27,22 @@ const address = new mongoose.Schema({
 
 
 const userSchema = new mongoose.Schema({
-  fullName: { type: String },
-  email: { type: String },
-  foto: { type: String },
-  password: { type: String },
-  active: { type: Boolean },
-  phone: { type: Number },
-  role: { type: String },
-  social: social_net,
-  notifications: [notifications],
-  seguridad: seguridad,
-  role: { type: String, enum: ['admin', 'user'] },
-  address: address
+  fullName: { type: String, default: "" },
+  email: { type: String, default: "" },
+  foto: { type: String, default: "" },
+  password: { type: String, default: "" },
+  active: { type: Boolean, default: true },
+  phone: { type: String, default: "" },
+  role: { type: String, default: "" },
+  social: { type: social_net, default: {} },
+  notifications: { type: [notifications], default: [] },
+  seguridad: { type: seguridad, default: {} },
+  role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  address: { type: address, default: {} }
 })
 
 
 
-export const User = mongoose.Model('Users', userSchema)
+const User = mongoose.model("Users", userSchema)
+export default User;
+console.log("Este schema", { User })

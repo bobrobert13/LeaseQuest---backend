@@ -8,7 +8,7 @@ module.exports = {
   port: process.env.PORT || 3000,
   db: {
     mongodb: {
-      development: "mongodb://127.0.0.1:27017/home",
+      development: "mongodb://127.0.0.1:27017/apertum",
       production: "mongodb://127.0.0.1:27017/"
     },
     sql: {
