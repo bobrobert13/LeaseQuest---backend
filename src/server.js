@@ -1,4 +1,5 @@
 const cors = require("cors")
+import colors from 'colors';
 import express from 'express';
 import { startMongo } from "./config/mongo"
 import { server } from '../src/domain'
@@ -17,5 +18,5 @@ app.use(cors(corsOptions));
 (async () => {
   await startMongo();
   await server.apollosServiceInit(app)
-  console.log('--------------------- Servicios Iniciados ------------------------');
+  console.log(colors.rainbow('--------------------- Servicios Iniciados ------------------------'));
 })()

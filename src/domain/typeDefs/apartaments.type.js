@@ -151,15 +151,22 @@ export const apartamentType = gql`
   phone: Int
   }
 
+  input filterBasic{
+    rank: Boolean
+    suite: Boolean
+  }
+
 
   type Query {
     allApartaments: [apartaments]
     getOneApartament(id: ID!): apartaments
     getRecommendadedApartaments: [apartaments]
+    getByRank: [apartaments]
   }
 
   type Mutation {
     newApartament(data: apartamentInput ): apartaments
+    filterApartaments(data: filterBasic): [apartaments]
   }
 
 `

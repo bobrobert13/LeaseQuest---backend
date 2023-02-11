@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
 import config from '../config'
+import colors from 'colors';
 import http from 'http'
 import { Application } from './modules'
 
@@ -32,6 +33,6 @@ export const server = {
     })
 
     const server = http.createServer(app)
-    server.listen(config.port, () => { console.log(` =======> Server Apollo GraphQl preparado.!!, puerto: ${config.port}${apolloApp.graphqlPath} `); })
+    server.listen(config.port, () => { '\n\n', console.log(colors.bgGreen(` =======> Server Apollo GraphQl preparado.!!, puerto: ${config.port}${apolloApp.graphqlPath} `)); })
   },
 }

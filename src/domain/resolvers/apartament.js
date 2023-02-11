@@ -4,8 +4,8 @@ import { ApartamentController } from "../controllers/apartaments";
 export const apartamentResolver = {
   Query: {
     //Listar todos los apts.
-    allApartaments: async (_, { }) => {
-      const apartament = await ApartamentController.getApartaments();
+    allApartaments: async (_, { data }) => {
+      const apartament = await ApartamentController.getApartaments(data);
       return apartament;
     },
 
@@ -21,11 +21,22 @@ export const apartamentResolver = {
       return apartament;
     },
 
+    getByRank: async (_, { }) => {
+      const apartament = await ApartamentController.getByRanking();
+      return apartament;
+    },
+
   },
   Mutation: {
     // nuevo apt
     newApartament: async (_, { data }) => {
       const apartament = await ApartamentController.newApartament(data);
+      return apartament;
+    },
+
+    filterApartaments: async (_, { data }) => {
+      console.log("rank", data)
+      const apartament = await ApartamentController.getApartaments(data);
       return apartament;
     },
   }

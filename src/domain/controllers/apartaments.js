@@ -4,10 +4,19 @@ import Ressort from "../model/ressort"
 export const ApartamentController = {
 
   // get all controller
-  getApartaments: async () => {
+  getApartaments: async (data) => {
     try {
-      const apt = await apartamentModel.find({})
-      return apt
+      if (data) {
+        let rank; let suite
+        data.rank != '' ? rank = 5 : '';
+        data.suite != false ? suite = data.suite : suite = false;
+        const apt = await apartamentModel.find({ points: { $gte: rank }, suite: suite });
+        return apt
+      }
+      else {
+        const apt = await apartamentModel.find({});
+        return apt
+      }
     } catch (error) {
       throw error
     }
@@ -42,10 +51,22 @@ export const ApartamentController = {
     }
   },
 
+  // insert new apt
   newApartament: async (data) => {
     try {
       const apt = await apartamentModel.insertMany(data);
       return data
+    } catch (e) {
+      (e) => { throw e }
+    }
+  },
+
+
+  // get apt by points
+  getByRanking: async () => {
+    try {
+      const apt = await apartamentModel.find({ points: { $gte: 5 } });
+      return apt
     } catch (e) {
       (e) => { throw e }
     }
