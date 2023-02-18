@@ -21,6 +21,10 @@ export const server = {
       playground: true,
       subscribe: true,
       debug: true,
+      context: (req) => {
+        console.log("CONTEXTO...", req);
+      }
+      ,
       subscriptions: {},
     })
 

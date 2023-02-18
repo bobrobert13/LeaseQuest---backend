@@ -7,6 +7,7 @@ export const ApartamentController = {
   getApartaments: async (data) => {
     try {
       if (data) {
+        //filto por rango de apt y si es suite o no. Sino retorna todos.
         let rank; let suite
         data.rank != '' ? rank = 5 : '';
         data.suite != false ? suite = data.suite : suite = false;
