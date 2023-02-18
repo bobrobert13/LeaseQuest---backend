@@ -16,4 +16,5 @@ module.exports = {
       production: ""
     }
   },
+  JWTsecret: process.env.JWTSECRET
 }

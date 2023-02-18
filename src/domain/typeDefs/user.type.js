@@ -51,6 +51,19 @@ export const userType = gql`
   address: address
 }
 
+type loginResponse {
+  token: token
+}
+
+input loginInput {
+  email: String
+  password: String
+}
+
+type token {
+  code: String
+  expire: Int
+}
 
   input userInput {
   fullName: String
@@ -63,6 +76,7 @@ export const userType = gql`
   type Query {
   getOneUser(userId: ID): User
   allUsers: [User]
+  login(data: loginInput ): loginResponse
     }
 
   type Mutation {

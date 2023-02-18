@@ -21,10 +21,7 @@ export const server = {
       playground: true,
       subscribe: true,
       debug: true,
-      context: (req) => {
-        console.log("CONTEXTO...", req);
-      }
-      ,
+      context: async ({ req }) => ({ req }),
       subscriptions: {},
     })
 
@@ -33,7 +30,7 @@ export const server = {
     apolloApp.applyMiddleware({
       app,
       path: urlApi,
-      cors: true
+      cors: true,
     })
 
     const server = http.createServer(app)
