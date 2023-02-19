@@ -5,7 +5,7 @@ export const apartamentResolver = {
   Query: {
     //Listar todos los apts.
     allApartaments: async (_, { data }, context) => {
-      await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
+      //await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
       const apartament = await ApartamentController.getApartaments(data);
       return apartament;
     },

@@ -1,11 +1,9 @@
-import { gql } from 'graphql-modules'
-
+import { gql } from "graphql-modules";
 
 export const userType = gql`
-
   enum role {
-   admin
-   user
+    admin
+    user
   }
 
   enum typeAddress {
@@ -37,53 +35,52 @@ export const userType = gql`
   }
 
   type User {
-  _id: ID!
-  fullName: String
-  email: String
-  foto: String
-  password: String
-  active: Boolean
-  phone: Int
-  social: social_net
-  notifications: [notifications]
-  seguridad: seguridad
-  role: role
-  address: address
-}
+    _id: ID!
+    fullName: String
+    email: String
+    foto: String
+    password: String
+    active: Boolean
+    phone: Int
+    social: social_net
+    notifications: [notifications]
+    seguridad: seguridad
+    role: role
+    address: address
+    code: String
+  }
 
-type loginResponse {
-  token: token
-}
+  type loginResponse {
+    token: token
+  }
 
-input loginInput {
-  email: String
-  password: String
-}
+  input loginInput {
+    email: String
+    password: String
+  }
 
-type token {
-  code: String
-  expire: Int
-}
+  type token {
+    code: String
+    expire: Int
+    user: User
+  }
 
   input userInput {
-  fullName: String
-  email: String
-  foto: String
-  password: String
-  role: role
+    fullName: String
+    email: String
+    foto: String
+    password: String
+    role: role
   }
 
   type Query {
-  getOneUser(userId: ID): User
-  allUsers: [User]
-  login(data: loginInput ): loginResponse
-    }
+    getOneUser(userId: ID): User
+    allUsers: [User]
+    login(data: loginInput): loginResponse
+  }
 
   type Mutation {
-  newUser(data: userInput): User
-  updateUser(data: userInput): User
-    }
-
-`
-
-
+    newUser(data: userInput): User
+    updateUser(data: userInput): User
+  }
+`;

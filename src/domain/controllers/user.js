@@ -1,5 +1,6 @@
 import User from "../model/user";
 import { jwtCreate } from "./tools/jwt";
+
 export const userController = {
   login: async (data) => {
     let token;
@@ -8,6 +9,7 @@ export const userController = {
         .lean()
         .then(async (user) => {
           if (!user) throw "USER-NOT-FOUND";
+          user.token = data.auth;
           token = await jwtCreate(user);
         })
         .catch((e) => {
@@ -37,6 +39,8 @@ export const userController = {
   },
 
   newUser: async ({ data }) => {
+    const userExist = await User.findOne({ email: data.email }).lean();
+    if (userExist) throw "Usuario ya existe";
     await User.insertMany(data);
     return data;
   },

@@ -1,14 +1,19 @@
 import { userController } from "../controllers/user";
 import { AuthVerify } from "../controllers/tools/jwt";
+import colors from "colors";
 
 export const userResolver = {
   Query: {
     login: async (_, { data }, context) => {
+      data.auth = context.req.headers.authorization;
       try {
+        console.log("CONTEXTO DESDE FRONT...", data);
         const token = await userController.login(data);
+        console.log(colors.bgRed("-------- login ------", token));
         return {
           token: {
-            code: token,
+            code: token.code,
+            user: token,
           },
         };
       } catch (e) {

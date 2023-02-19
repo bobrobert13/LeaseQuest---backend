@@ -3,7 +3,7 @@ import config from "../../../config";
 
 export async function jwtCreate(data) {
   const token = jwt.sign(data, config.JWTsecret);
-  return token;
+  return await AuthVerify(token, ["admin", "user"]);
 }
 
 export async function AuthVerify(auth, permissions) {
@@ -18,6 +18,6 @@ export async function AuthVerify(auth, permissions) {
   } catch (e) {
     throw ("ERROR-VERIFY-TOKEN-REQUEST", e);
   }
-  // console.log("TOKEN.... ", token);
+  token.code = auth;
   return token;
 }
