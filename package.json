@@ -30,6 +30,7 @@
     "graphql-modules": "^2.1.0",
     "graphql-shield": "^7.6.5",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
     "mongoose": "^6.6.5",
     "node-telegram-bot-api": "^0.59.0",
     "pm2": "^5.2.0",
