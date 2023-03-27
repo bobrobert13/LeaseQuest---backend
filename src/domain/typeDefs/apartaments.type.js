@@ -1,7 +1,6 @@
 import { gql } from "graphql-modules";
 
 export const apartamentType = gql`
-
   enum calidad {
     Exelente
     Buena
@@ -21,14 +20,13 @@ export const apartamentType = gql`
   }
 
   type gallery {
-  _id: ID!
-  path: String
-  photo: String
-  url: String
-  binary: String
+    _id: ID!
+    path: String
+    photo: String
+    url: String
+    binary: String
   }
 
-  
   type services {
     _id: ID!
     name: String
@@ -37,10 +35,10 @@ export const apartamentType = gql`
 
   type user {
     _id: ID!
-  fullName: String
-  email: String
-  foto: String
-  phone: Int
+    fullName: String
+    email: String
+    foto: String
+    phone: Int
   }
 
   type booking {
@@ -56,55 +54,55 @@ export const apartamentType = gql`
   }
 
   type apartaments {
-  _id: ID!
-  name: String
-  photo: String
-  description: String
-  disponible: Boolean
-  recomendado: Boolean
-  bathrooms: Int
-  rooms: Int
-  salas: Int
-  suite: Boolean
-  costo: Int
-  plans: [plans]
-  points: Int
-  recomendadoBy: [user]
-  gallery: [gallery]
-  numberApt: Int
-  calidad: calidad
-  inFav: user
-  cocinas: Int
-  muebleria: Boolean
-  servicios: [services]
-  status: Boolean
-  booking: booking
+    _id: ID!
+    name: String
+    photo: String
+    description: String
+    disponible: Boolean
+    recomendado: Boolean
+    bathrooms: Int
+    rooms: Int
+    salas: Int
+    suite: Boolean
+    costo: Int
+    plans: [plans]
+    points: Int
+    recomendadoBy: [user]
+    gallery: [gallery]
+    numberApt: Int
+    calidad: calidad
+    inFav: user
+    cocinas: Int
+    muebleria: Boolean
+    servicios: [services]
+    status: Boolean
+    booking: booking
   }
 
   input apartamentInput {
-  name: String
-  photo: String
-  description: String
-  disponible: Boolean
-  recomendado: Boolean
-  bathrooms: Int
-  address: addressInput
-  rooms: Int
-  salas: Int
-  suite: Boolean
-  costo: Int
-  plans: [plansInput]
-  points: Int
-  recomendadoBy: [userInput]
-  gallery: [galleryInput]
-  numberApt: Int
-  calidad: calidad
-  inFav: userInput
-  cocinas: Int
-  muebleria: Boolean
-  servicios: [servicesInput]
-  status: Boolean
-  booking: bookingInput
+    name: String
+    photo: String
+    description: String
+    disponible: Boolean
+    recomendado: Boolean
+    bathrooms: Int
+    address: addressInput
+    rooms: Int
+    salas: Int
+    suite: Boolean
+    costo: Int
+    plans: [plansInput]
+    points: Int
+    recomendadoBy: [userInput]
+    gallery: [galleryInput]
+    numberApt: Int
+    calidad: calidad
+    inFav: userInput
+    cocinas: Int
+    muebleria: Boolean
+    servicios: [servicesInput]
+    status: Boolean
+    booking: bookingInput
   }
 
   input plansInput {
@@ -114,17 +112,17 @@ export const apartamentType = gql`
   }
 
   input userInput {
-  fullName: String
-  email: String
-  foto: String
-  phone: Int
+    fullName: String
+    email: String
+    foto: String
+    phone: Int
   }
 
   input galleryInput {
-  path: String
-  photo: String
-  url: String
-  binary: String
+    path: String
+    photo: String
+    url: String
+    binary: String
   }
 
   input servicesInput {
@@ -143,19 +141,18 @@ export const apartamentType = gql`
     type: typeAddress
   }
 
-
   input userInput {
-  fullName: String
-  email: String
-  foto: String
-  phone: Int
+    id: ID
+    fullName: String
+    email: String
+    foto: String
+    phone: Int
   }
 
-  input filterBasic{
+  input filterBasic {
     rank: Boolean
     suite: Boolean
   }
-
 
   type Query {
     allApartaments: [apartaments]
@@ -165,8 +162,10 @@ export const apartamentType = gql`
   }
 
   type Mutation {
-    newApartament(data: apartamentInput ): apartaments
+    newApartament(data: apartamentInput): apartaments
     filterApartaments(data: filterBasic): [apartaments]
+    newRecommended(data: userInput): Boolean
+    newInFav(data: userInput): Boolean
+    givePoints(data: userInput): Boolean
   }
-
-`
+`;

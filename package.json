@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/server.js --exec babel-node",
     "prod": "NODE_ENV=production nodemon src/server.js --exec babel-node",
-    "build": "tsc babel src/server.ts -d ./dist"
+    "build": "tsc babel src/server.ts -d ./dist",
+    "ejemplos": "./src/script/ejm.js"
   },
   "keywords": [
     "ventas",

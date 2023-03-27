@@ -1,5 +1,6 @@
 import { ApartamentController } from "../controllers/apartaments";
 import { AuthVerify } from "../controllers/tools/jwt";
+import colors from "colors";
 
 export const apartamentResolver = {
   Query: {
@@ -31,6 +32,8 @@ export const apartamentResolver = {
   Mutation: {
     // nuevo apt
     newApartament: async (_, { data }, context) => {
+      console.log(colors.blue("NEW APT ... "), data);
+      await AuthVerify(context.req.headers.authorization, ["admin"]);
       const apartament = await ApartamentController.newApartament(data);
       return apartament;
     },
@@ -39,6 +42,27 @@ export const apartamentResolver = {
       console.log("rank", data);
       const apartament = await ApartamentController.getApartaments(data);
       return apartament;
+    },
+
+    newRecommended: async (_, { data }, context) => {
+      console.log("new recommended:: ", data);
+      await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
+      const response = await ApartamentController.newRecommendeds(data);
+      return response;
+    },
+
+    newInFav: async (_, { data }, context) => {
+      console.log("new in fav:: ", data);
+      await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
+      const response = await ApartamentController.newInFavOfUser(data);
+      return response;
+    },
+
+    givePoints: async (_, { data }, context) => {
+      console.log("new points:: ", data);
+      await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
+      const response = await ApartamentController.givePoints(data);
+      return response;
     },
   },
 };

@@ -7,9 +7,9 @@ export const userResolver = {
     login: async (_, { data }, context) => {
       data.auth = context.req.headers.authorization;
       try {
-        console.log("CONTEXTO DESDE FRONT...", data);
+        //console.log("CONTEXTO DESDE FRONT...", data);
         const token = await userController.login(data);
-        console.log(colors.bgRed("-------- login ------", token));
+       // console.log(colors.bgRed("-------- login ------", token));
         return {
           token: {
             code: token.code,

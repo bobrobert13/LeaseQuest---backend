@@ -1,34 +1,34 @@
-
 import mongoose from "mongoose";
 
 const plans = new mongoose.Schema({
-  byDay: { type: Boolean }, byMonth: { type: Boolean }, byWeek: { type: Boolean }
-})
-
+  byDay: { type: Boolean },
+  byMonth: { type: Boolean },
+  byWeek: { type: Boolean },
+});
 
 const user = new mongoose.Schema({
-  id: { type: String },
+  id: { type: mongoose.Schema.Types.ObjectId },
   fullName: { type: String },
   email: { type: String },
   foto: { type: String },
-})
+});
 
 const gallery = new mongoose.Schema({
   path: { type: String },
   photo: { type: String },
   url: { type: String },
-  binary: { type: String }
-})
+  binary: { type: String },
+});
 
 const services = new mongoose.Schema({
   name: { type: String },
-  status: { type: Boolean }
-})
+  status: { type: Boolean },
+});
 
 const booking = new mongoose.Schema({
   start: { type: Date },
-  end: { type: Date }
-})
+  end: { type: Date },
+});
 
 // const address = new mongoose.Schema({
 //   referencia: { type: String },
@@ -36,7 +36,7 @@ const booking = new mongoose.Schema({
 //   type: { type: String, enum: ['casa', 'apartamento', 'ninguno'] }
 // })
 
-const apartamentSchema = new mongoose.Schema({
+export const apartamentSchema = new mongoose.Schema({
   name: { type: String },
   photo: { type: String },
   description: { type: String },
@@ -48,21 +48,21 @@ const apartamentSchema = new mongoose.Schema({
   suite: { type: Boolean },
   costo: { type: Number },
   plans: [plans],
-  points: { type: Number, },
+  points: { type: Number },
   recomendadoBy: [user],
   gallery: [gallery],
   numberApt: { type: Number },
   calidad: { type: String, enum: ["Exelente", "Buena", "Regular"] },
-  inFav: user,
+  inFav: [user],
   cocinas: { type: Number },
   muebleria: { type: Boolean },
   servicios: [services],
   disponible: { type: Boolean, default: true },
   status: { type: Boolean, default: true },
   booking: booking,
-})
+});
 
-const apartamentModel = mongoose.model('apartaments', apartamentSchema);
+const apartamentModel = mongoose.model("apartaments", apartamentSchema);
 export default apartamentModel;
 
-console.log("esquema infe", { apartamentModel })
+console.log("esquema infe", { apartamentModel });

@@ -25,7 +25,7 @@ export const userController = {
     try {
       return await User.find({});
     } catch (error) {
-      throw error;
+      throw 'ERROR-ALLUSERS-REQUEST', error;
     }
   },
 
