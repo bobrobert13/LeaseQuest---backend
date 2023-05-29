@@ -1,5 +1,6 @@
 import User from "../model/user";
 import { jwtCreate } from "./tools/jwt";
+import mongoose from 'mongoose'
 
 export const userController = {
   login: async (data) => {
@@ -52,4 +53,47 @@ export const userController = {
     );
     return data;
   },
+
+  addApartamentToFavorite: async (userId, aptId) => {
+    let addDone = false;
+    await User.updateOne({ "_id": userId }, { $push: { "favorites": { _id: aptId } } }).then((res) => {
+      addDone = res.acknowledged
+    }).catch((e) => {
+      console.log("ERROR.. ", e);
+    })
+    return addDone;
+  },
+
+  getFavoriteApartaments: async (_id) => {
+    try {
+      console.log("CONSULTADNO... ", _id);
+      let favoritesApartaments = await User.aggregate([
+        {
+          '$match': {
+            '_id': mongoose.Types.ObjectId(_id)
+          }
+        }, {
+          '$lookup': {
+            'from': 'apartaments',
+            'localField': 'favorites._id',
+            'foreignField': '_id',
+            'as': 'favorites'
+          }
+        }, {
+          '$project': {
+            'favorites': 1,
+            '_id': 0
+          }
+        }
+      ]);
+      return favoritesApartaments[0].favorites;
+
+    } catch (error) {
+      console.error(error);
+      throw 'ERROR-GETTING-FAVORITE-USER-APARTAMENTS', error;
+    }
+
+
+  }
+
 };

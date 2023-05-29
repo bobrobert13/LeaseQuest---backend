@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV;
 
 module.exports = {
   env: env,
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 4000,
   db: {
     mongodb: {
       development: "mongodb://127.0.0.1:27017/apertum",

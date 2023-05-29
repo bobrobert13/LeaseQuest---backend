@@ -9,7 +9,7 @@ export const userResolver = {
       try {
         //console.log("CONTEXTO DESDE FRONT...", data);
         const token = await userController.login(data);
-       // console.log(colors.bgRed("-------- login ------", token));
+        // console.log(colors.bgRed("-------- login ------", token));
         return {
           token: {
             code: token.code,
@@ -24,7 +24,13 @@ export const userResolver = {
       await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
       return userController.getUserById(id);
     },
-    allUsers: async (_, {}, context) => {
+
+    getFavoriteApartaments: async (_, { _id }, context) => {
+      console.log("ID... ", _id);
+      return await userController.getFavoriteApartaments(_id);
+    },
+
+    allUsers: async (_, { }, context) => {
       await AuthVerify(context.req.headers.authorization, ["admin"]);
       let users = await userController.getAllUser();
       return users;
@@ -40,6 +46,9 @@ export const userResolver = {
       await AuthVerify(context.req.headers.authorization, ["admin", "user"]);
       const userUpdate = await userController.updateUserData(data);
       return userUpdate;
+    },
+    addApartamentToFavorites: async (_, { userId, aptId }, context) => {
+      return await userController.addApartamentToFavorite(userId, aptId);
     },
   },
 };

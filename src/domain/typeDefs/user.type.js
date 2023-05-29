@@ -23,6 +23,10 @@ export const userType = gql`
     phone: String
   }
 
+  type favorites {
+    _id: ID
+  }
+
   type seguridad {
     pin: Int
     status: Boolean
@@ -43,6 +47,7 @@ export const userType = gql`
     active: Boolean
     phone: Int
     social: social_net
+    favorites: [favorites]
     notifications: [notifications]
     seguridad: seguridad
     role: role
@@ -65,22 +70,29 @@ export const userType = gql`
     user: User
   }
 
+input favoritesInput {
+  _id: ID
+}
+
   input userInput {
     fullName: String
     email: String
     foto: String
     password: String
     role: role
+    favorites: [favoritesInput]
   }
 
   type Query {
     getOneUser(userId: ID): User
     allUsers: [User]
     login(data: loginInput): loginResponse
+    getFavoriteApartaments(_id: ID!): [apartaments]
   }
 
   type Mutation {
     newUser(data: userInput): User
     updateUser(data: userInput): User
+    addApartamentToFavorites(userId: ID!, aptId: ID!): Boolean
   }
 `;

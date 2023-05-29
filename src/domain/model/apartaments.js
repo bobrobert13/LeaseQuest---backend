@@ -60,7 +60,7 @@ export const apartamentSchema = new mongoose.Schema({
   disponible: { type: Boolean, default: true },
   status: { type: Boolean, default: true },
   booking: booking,
-});
+}, { timestamps: true });
 
 const apartamentModel = mongoose.model("apartaments", apartamentSchema);
 export default apartamentModel;

@@ -2,6 +2,9 @@ import { gql } from "graphql-modules";
 
 export const bookingType = gql`
 
+scalar Upload
+scalar Date
+
 type status{ 
   code: Int
   process: String
@@ -10,8 +13,8 @@ type status{
   type booking {
   _id: ID!
   number: Boolean
-  apartament: ID
-  client: ID
+  apartament: [apartaments]
+  client: [User]
   status: status
   }
 
@@ -20,14 +23,27 @@ type status{
   process: String
 }
 
+
   input bookingInput {
   apartament: ID!
   client: ID!
-  status: status
+  status: statusInput
+  }
+
+  type filter {
+    createdAt: Date
+    updatedAt: Date
+    active: Boolean
+  }
+
+  input filterInput {
+    createdAt: Date
+    updatedAt: Date
+    active: Boolean
   }
 
   type Query {
-
+    getBookings(data: filterInput): [booking]
   }
 
   type Mutation {

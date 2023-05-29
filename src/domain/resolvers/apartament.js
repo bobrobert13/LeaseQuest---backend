@@ -18,13 +18,13 @@ export const apartamentResolver = {
     },
 
     // get a recomendado solo.
-    getRecommendadedApartaments: async (_, {}, context) => {
+    getRecommendadedApartaments: async (_, { }, context) => {
       const apartament =
         await ApartamentController.getApartamentsRecommendaded();
       return apartament;
     },
 
-    getByRank: async (_, {}, context) => {
+    getByRank: async (_, { }, context) => {
       const apartament = await ApartamentController.getByRanking();
       return apartament;
     },
@@ -39,7 +39,6 @@ export const apartamentResolver = {
     },
 
     filterApartaments: async (_, { data }, context) => {
-      console.log("rank", data);
       const apartament = await ApartamentController.getApartaments(data);
       return apartament;
     },

@@ -7,18 +7,22 @@ export const ApartamentController = {
   getApartaments: async (data) => {
     try {
       if (data) {
-        //filto por rango de apt y si es suite o no. Sino retorna todos.
+        console.log("filtrando... ", data);
+        const { costo, calidad, salas, rooms, bathrooms, muebleria } = data;
+        let calidadApt = ["Exelente", "Buena", "Regular"].indexOf(calidad) < 0 ? calidadApt = null : calidad
+        costo.gte <= 10 ? costo.gte = 20 : null;
+        costo.lte <= 20 ? costo.lte = 10000 : null
         let rank;
-        let suite;
-        data.rank != "" ? (rank = 5) : "";
-        data.suite != false ? (suite = data.suite) : (suite = false);
+        data.rank != null ? (rank = data.rank) : null;
         const apt = await apartamentModel.find({
+          disponible: true,
           points: { $gte: rank },
-          suite: suite,
+          $and: [{ costo: { $gte: costo.gte } }, { costo: { $lte: costo.lte } }, { calidad: calidadApt },
+          { salas: { $gte: salas } }, { rooms: { $gte: rooms } }, { bathrooms: { $gte: bathrooms } }]
         });
         return apt;
       } else {
-        const apt = await apartamentModel.find({});
+        const apt = await apartamentModel.find({ disponible: true });
         //console.log("APARTAMENTOS... ", apt);
         let recomendaded = [], general = [];
         apt.reduce((acc, apart) => {
@@ -28,7 +32,7 @@ export const ApartamentController = {
           general: general,
           recomendaded: recomendaded
         }
-        console.log(apartamento)
+        // console.log(apartamento)
         console.time()
         return apt;
       }
@@ -133,7 +137,7 @@ export const ApartamentController = {
   // get apt by points
   getByRanking: async () => {
     try {
-      const apt = await apartamentModel.find({ points: { $gte: 5 } });
+      const apt = await apartamentModel.find({ $and: [{ points: { $gte: 4 } }, { recomendado: { $eq: true } }, { disponible: { $eq: true } }] });
       return apt;
     } catch (e) {
       (e) => {

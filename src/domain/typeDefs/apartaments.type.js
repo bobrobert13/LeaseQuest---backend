@@ -149,9 +149,20 @@ export const apartamentType = gql`
     phone: Int
   }
 
+  input range{
+    gte: Int
+    lte: Int
+  }
+
   input filterBasic {
-    rank: Boolean
+    rank: Int
     suite: Boolean
+    costo: range
+    calidad: calidad
+    salas: Int
+    rooms: Int
+    bathrooms: Int
+    muebleria: Boolean
   }
 
   type Query {

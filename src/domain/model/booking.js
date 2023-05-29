@@ -9,10 +9,13 @@ const booking = new mongoose.Schema(
   {
     apartaments: { type: mongoose.Schema.Types.ObjectId },
     client: { type: mongoose.Schema.Types.ObjectId },
+    apartament: { type: mongoose.Schema.Types.ObjectId },
+    start: { type: String, default: "" },
+    end: { type: String, default: "" },
     activa: { type: Boolean },
     status: status,
   },
-  { timeStamp: true }
+  { timestamps: true }
 );
 
 export const bookings = mongoose.model("Booking", booking);
